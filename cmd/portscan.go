@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 	"net"
-	"os"
 	"time"
 
 	"github.com/fatih/color"
@@ -14,27 +13,21 @@ import (
 
 func init() {
 	rootCmd.AddCommand(portscanCmd)
-	portscanCmd.Flags().StringVarP(&rconConnectAddress, "address", "a", "", "Server address to query (e.g. hypixel.net)")
+	portscanCmd.Flags().StringVarP(&portScanAddress, "address", "a", "", "Server address to query (e.g. hypixel.net)")
 	portscanCmd.MarkFlagRequired("address")
 }
 
-var address string
+var portScanAddress string
 
 var portscanCmd = &cobra.Command{
-	Use:   "portscann",
+	Use:   "portscan",
 	Short: "See open ports of an server",
 	Long:  `Using this command you can see how many ports and what ports are open on an server`,
 	Run: func(cmd *cobra.Command, args []string) {
 		red := color.New(color.FgRed).SprintFunc()
 		green := color.New(color.FgGreen).SprintFunc()
 
-		if address == "" {
-			fmt.Fprintln(os.Stderr, red("[ERROR] --address flag is required.\n"))
-			fmt.Fprintln(os.Stderr, "Use '--help' to see usage instructions.")
-			os.Exit(1)
-		}
-
-		fmt.Printf(green("Scanning: %s\n\n"), address)
+		fmt.Printf(green("Scanning: %s\n\n"), portScanAddress)
 
 		var ports = map[int]string{
 			25565: "Minecraft Java (default)",
@@ -54,7 +47,7 @@ var portscanCmd = &cobra.Command{
 		}
 
 		for port, desc := range ports {
-			address := address + ":" + strconv.Itoa(port)
+			address := portScanAddress + ":" + strconv.Itoa(port)
 			conn, err := net.DialTimeout("tcp", address, time.Second)
 			if err != nil {
 				fmt.Printf(red("%-7s (%s) | Is closed or filterd\n"), strconv.Itoa(port), desc)
