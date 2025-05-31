@@ -15,7 +15,7 @@ var rootCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		hiBlue := color.New(color.FgHiBlue).SprintFunc()
 
-		fmt.Println(hiBlue("Available commands: \n\nrconconnect <address> <password>\nserverinfo <address>\nportscan <address>\n\n"))
+		fmt.Println(hiBlue("Available commands: \n\nrconconnect <address> <password>\nserverinfo <address>\nportscan <address>\nuuid <player>\nlocateip <ip>\nkick <player>\n\n"))
 	},
 }
 
