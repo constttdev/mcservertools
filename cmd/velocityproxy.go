@@ -113,6 +113,7 @@ var velocityProxyCmd = &cobra.Command{
 			return
 		} else {
 			fmt.Println(italic("[DEBUG] Started server jar"))
+			jarExecute.Dir = dir
 		}
 
 		time.Sleep(5 * time.Second)
