@@ -39,16 +39,27 @@ var serverInfoCmd = &cobra.Command{
 
 		pinger := mcpinger.New(host, uint16(port), mcpinger.WithTimeout(10*time.Second))
 
-		info, err := pinger.Ping()
+		start := time.Now()
+		info, pErr := pinger.Ping()
+		latency := time.Since(start)
 
-		if err != nil {
-			log.Println(err)
+		ips, ipErr := net.LookupHost(host)
+
+		if pErr != nil {
+			log.Println(pErr)
 			return
 		}
 
 		fmt.Printf(cyan("Description: \"%s\"\n"), cleanMOTD(info.Description.Text))
 		fmt.Printf(green("Players: %d/%d\n"), info.Players.Online, info.Players.Max)
 		fmt.Printf("%s %s\n", yellow("Version(s):"), info.Version.Name)
+		fmt.Printf(green("Ping: %d ms\n"), latency.Milliseconds())
+
+		if ipErr == nil && len(ips) > 0 {
+			fmt.Println(cyan("IP: "), ips[0])
+		} else {
+			fmt.Println("IP: (Could not resolve)")
+		}
 	},
 }
 
