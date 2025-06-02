@@ -6,11 +6,10 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"os/exec"
 	"path/filepath"
-	"time"
 
 	"github.com/fatih/color"
+	"github.com/pelletier/go-toml"
 	"github.com/spf13/cobra"
 )
 
@@ -106,19 +105,31 @@ var velocityProxyCmd = &cobra.Command{
 		}
 		fmt.Println(italic("[DEBUG] Renamed to server.jar"))
 
-		jarExecute := exec.Command("java", "-jar", newJarPath)
+		// jarExecute := exec.Command("java", "-jar", newJarPath)
 
-		if err := jarExecute.Start(); err != nil {
-			fmt.Println("Error starting command:", err)
+		configPath := filepath.Join(dir, "velocity.toml")
+
+		configData, err := os.ReadFile(configPath)
+		if err != nil {
+			fmt.Println("Error reading configuration file:", err)
 			return
-		} else {
-			fmt.Println(italic("[DEBUG] Started server jar"))
-			jarExecute.Dir = dir
 		}
 
-		time.Sleep(5 * time.Second)
+		configTree, err := toml.Load(string(configData))
+		if err != nil {
+			fmt.Println("Error parsing TOML data:", err)
+			return
+		}
 
-		jarExecute.Process.Kill()
-		fmt.Println(italic("[DEBUG] Killed server jar"))
+		newBindAddress := "0.0.0.0:25565"
+		configTree.Set("bind", newBindAddress)
+
+		err = os.WriteFile(configPath, []byte(configTree.String()), 0644)
+		if err != nil {
+			fmt.Println("Error writing updated configuration:", err)
+			return
+		}
+
+		fmt.Println("Successfully updated bind address in velocity.toml")
 	},
 }
