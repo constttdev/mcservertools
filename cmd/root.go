@@ -4,18 +4,15 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "cmds",
-	Short: "List all available commands",
-	Long:  `Using this command you can see all available commands`,
+	Use:   "mcst",
+	Short: "A CLI tool for testing Minecraft servers",
+	Long:  `This tool allows you to perform various tests on Minecraft servers.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		hiBlue := color.New(color.FgHiBlue).SprintFunc()
-
-		fmt.Println(hiBlue("Available commands: \n\nrconconnect <address> <password>\nserverinfo <address>\nportscan <address>\nuuid <player>\nlocateip <ip>\nkick <player>\n\n"))
+		fmt.Println("Welcome to mcst! Use --help for usage.")
 	},
 }
 
