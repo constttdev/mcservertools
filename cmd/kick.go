@@ -15,7 +15,7 @@ var (
 )
 
 func init() {
-	rootCmd.AddCommand(kickCmd)
+	RootCmd.AddCommand(kickCmd)
 	kickCmd.Flags().StringVarP(&kickAddress, "address", "a", "", "Server address to join (e.g., 127.0.0.1)")
 	kickCmd.Flags().IntVarP(&kickPort, "port", "P", 25565, "Server port (default 25565)")
 	kickCmd.Flags().StringVarP(&kickPlayer, "player", "p", "", "Player name to use for login (e.g., Notch)")

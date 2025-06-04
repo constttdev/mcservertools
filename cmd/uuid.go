@@ -13,7 +13,7 @@ import (
 )
 
 func init() {
-	rootCmd.AddCommand(uuidCmd)
+	RootCmd.AddCommand(uuidCmd)
 	uuidCmd.Flags().StringVarP(&player, "player", "a", "", "Player name to uuid lookup (e.g. Notch)")
 	uuidCmd.MarkFlagRequired("player")
 }

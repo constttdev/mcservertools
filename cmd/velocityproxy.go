@@ -7,7 +7,7 @@ import (
 )
 
 func init() {
-	rootCmd.AddCommand(velocityProxyCmd)
+	RootCmd.AddCommand(velocityProxyCmd)
 	velocityProxyCmd.Flags().StringVarP(&velocityProxyAddress, "address", "a", "", "The address to bind the proxy to")
 	velocityProxyCmd.MarkFlagRequired("address")
 }

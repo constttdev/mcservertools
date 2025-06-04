@@ -23,7 +23,7 @@ type GeoInfo struct {
 }
 
 func init() {
-	rootCmd.AddCommand(geolocationCmd)
+	RootCmd.AddCommand(geolocationCmd)
 	geolocationCmd.Flags().StringVarP(&ip, "ip", "", "", "IP address to locate")
 	geolocationCmd.MarkFlagRequired("ip")
 }

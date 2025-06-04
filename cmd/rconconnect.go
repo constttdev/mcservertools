@@ -12,7 +12,7 @@ import (
 )
 
 func init() {
-	rootCmd.AddCommand(rconConnectCmd)
+	RootCmd.AddCommand(rconConnectCmd)
 	rconConnectCmd.Flags().StringVarP(&rconConnectAddress, "address", "a", "", "RCON address (e.g. 127.0.0.1)")
 	rconConnectCmd.Flags().IntVarP(&rconConnectPort, "port", "p", 25575, "RCON port (default 25575)")
 	rconConnectCmd.Flags().StringVarP(&rconPassword, "password", "", "", "RCON password (required)")

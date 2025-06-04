@@ -21,7 +21,7 @@ type BlacklistResponse struct {
 }
 
 func init() {
-	rootCmd.AddCommand(serverInfoCmd)
+	RootCmd.AddCommand(serverInfoCmd)
 	serverInfoCmd.Flags().StringVarP(&serverInfoAddress, "address", "a", "", "Server address to query (e.g. hypixel.net)")
 	serverInfoCmd.Flags().IntVarP(&serverInfoPort, "port", "p", 25565, "Server port (default 25565)")
 

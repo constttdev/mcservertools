@@ -12,7 +12,7 @@ import (
 )
 
 func init() {
-	rootCmd.AddCommand(portscanCmd)
+	RootCmd.AddCommand(portscanCmd)
 	portscanCmd.Flags().StringVarP(&portScanAddress, "address", "a", "", "Server address to query (e.g. hypixel.net)")
 	portscanCmd.MarkFlagRequired("address")
 }
