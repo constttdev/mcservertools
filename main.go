@@ -2,17 +2,45 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"time"
 
-	"github.com/common-nighthawk/go-figure"
-	"github.com/fatih/color"
-
+	shell "github.com/brianstrauch/cobra-shell"
 	"github.com/constt/mcservertools/cmd"
+	"github.com/hugolgst/rich-go/client"
 )
 
 func main() {
-	figure := figure.NewFigure("MC Server Tools", "slant", true)
-	blue := color.New(color.FgBlue).SprintFunc()
-	fmt.Println(blue(figure.String()))
+	startDRP()
+	shellCmd := shell.New(cmd.RootCmd, nil)
 
-	cmd.Execute()
+	if err := shellCmd.Execute(); err != nil {
+		fmt.Println("Error starting shell:", err)
+		os.Exit(1)
+	}
+}
+
+func startDRP() {
+	err := client.Login("1379820182662414478")
+	if err != nil {
+		fmt.Println("Error initializing Discord Rich Presence:", err)
+		return
+	}
+
+	now := time.Now()
+	err = client.SetActivity(client.Activity{
+		State:      "Using mcservertools",
+		Details:    "Testing Minecraft servers",
+		LargeImage: "largeimageid",
+		LargeText:  "MC Server Tools",
+		SmallImage: "smallimageid",
+		SmallText:  "CLI Tool",
+		Timestamps: &client.Timestamps{
+			Start: &now,
+		},
+	})
+
+	if err != nil {
+		fmt.Println("Error setting Discord activity:", err)
+	}
 }
