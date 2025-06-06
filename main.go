@@ -16,7 +16,11 @@ func main() {
 
 	figure := figure.NewColorFigure("MC Server Tools", "slant", "blue", true)
 	figure.Print()
-	fmt.Printf("\n\n\n\n\n\n\n")
+
+	fmt.Println("Press any key to start shell...")
+	fmt.Scanln()
+
+	fmt.Print("\033c")
 
 	shellCmd := shell.New(cmd.RootCmd, nil)
 
