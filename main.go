@@ -6,12 +6,18 @@ import (
 	"time"
 
 	shell "github.com/brianstrauch/cobra-shell"
+	"github.com/common-nighthawk/go-figure"
 	"github.com/constt/mcservertools/cmd"
 	"github.com/hugolgst/rich-go/client"
 )
 
 func main() {
 	startDRP()
+
+	figure := figure.NewColorFigure("MC Server Tools", "slant", "blue", true)
+	figure.Print()
+	fmt.Printf("\n\n\n\n\n\n\n")
+
 	shellCmd := shell.New(cmd.RootCmd, nil)
 
 	if err := shellCmd.Execute(); err != nil {
@@ -31,10 +37,8 @@ func startDRP() {
 	err = client.SetActivity(client.Activity{
 		State:      "Using mcservertools",
 		Details:    "Testing Minecraft servers",
-		LargeImage: "largeimageid",
+		LargeImage: "logo_test_mod_scaled_16x_pngcrushed",
 		LargeText:  "MC Server Tools",
-		SmallImage: "smallimageid",
-		SmallText:  "CLI Tool",
 		Timestamps: &client.Timestamps{
 			Start: &now,
 		},
