@@ -44,7 +44,8 @@ By using this software, you agree to this following term:
 
 ## ✍️ Authors
 
--   [@constt](https://www.github.com/constttdev)
+-   [@constt](https://www.github.com/constttdev) ![Founder Shield](https://img.shields.io/badge/FOUNDER-red)
+-   [@banduty](https://www.github.com/B4nduty) ![Artist Shield](https://img.shields.io/badge/ARTIST-blue)
 
 ## 💾 Installation
 
